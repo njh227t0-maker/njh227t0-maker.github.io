@@ -54,6 +54,12 @@
   .under-construction{display:inline-block;background:#ffdf00;border:2px dashed #111;padding:5px;font:bold 11px monospace}
   .game-canvas{display:block;width:100%;max-width:480px;height:auto;border:3px ridge #aaa;background:#111;image-rendering:pixelated}
   .mine-board{display:grid;grid-template-columns:repeat(9,30px);gap:2px;width:max-content}
+  .board2048{display:grid;grid-template-columns:repeat(4,minmax(48px,70px));gap:6px;width:max-content;padding:8px;background:#8b8176;border-radius:5px}
+  .tile2048{height:58px;display:flex;align-items:center;justify-content:center;background:#d8cfc3;color:#423b35;font:bold 22px Arial;border-radius:4px}
+  .tile2048.v0{background:#b9ada0;color:transparent}.tile2048.v2{background:#eee4da}.tile2048.v4{background:#ede0c8}.tile2048.v8{background:#f2b179;color:white}.tile2048.v16{background:#f59563;color:white}.tile2048.v32{background:#f67c5f;color:white}.tile2048.v64{background:#f65e3b;color:white}.tile2048.big{background:#edcf72;color:white;font-size:18px}
+  .memory-board{display:grid;grid-template-columns:repeat(4,70px);gap:7px;width:max-content}
+  .memory-card{height:70px;border:2px outset #eee;background:#244a78;color:white;font-size:27px;cursor:pointer}.memory-card.open{background:#f6f1e7;color:#172b45;border-style:inset}.memory-card:disabled{cursor:default}
+  @media(max-width:430px){.memory-board{grid-template-columns:repeat(4, minmax(48px,1fr));width:100%}.memory-card{width:100%;height:58px}.board2048{grid-template-columns:repeat(4,minmax(45px,1fr));width:100%;box-sizing:border-box}.tile2048{height:52px;font-size:18px}}
   .mine-cell{width:30px;height:30px;padding:0;border:2px outset #eee;background:#ccc;font-weight:bold;cursor:pointer}
   .mine-cell.revealed{border:1px solid #999;background:#eee}
   @media(max-width: 430px) { main { padding: 12px; } .maze { grid-template-columns: repeat(15, 17px); } .cell { width: 17px; height: 17px; } }
@@ -63,9 +69,9 @@
 <div class="page">
   <header>
     <h1>my homepage</h1>
-    <p>just a little corner of the internet</p>
+    <p>a personal homepage</p>
   </header>
-  <div class="marquee"><span>★ WELCOME TO MY WEBSITE ★ NEW GAMES MAYBE ★ HAVE FUN ★ YOU ARE VISITOR NUMBER... SOMETHING ★</span></div>
+  <div class="marquee"><span>★ WELCOME TO MY WEBSITE ★ GAMES AND MORE ★ EST. 2026 ★</span></div>
   <nav>
     <button class="active" data-page="home">HOME</button>
     <button data-page="games">GAMES</button>
@@ -74,31 +80,36 @@
     <section id="homePage">
       <h2>HOME</h2>
       <div class="panel">
-        <p style="font: bold 20px Georgia,serif">Ts my website</p>
-        <p>Welcome to my page. Look around or play something.</p>
-        <p class="tiny">Last updated: whenever I feel like it lol</p>
+        <p id="homeGreeting" style="font: bold 20px Georgia,serif">This is my website.</p>
+        <p>Welcome. Browse the site or choose a game.</p>
+        <p class="tiny">Last updated: 2026</p>
       </div>
-      <div><span class="web-badge">BEST VIEWED AT 800×600</span><span class="web-badge">100% HANDMADE-ISH</span><span class="web-badge">NO COOKIES</span></div>
+      <div><span class="web-badge">BEST VIEWED AT 800×600</span><span class="web-badge" id="handmadeBadge">PERSONAL WEBSITE</span><span class="web-badge">NO COOKIES</span></div>
       <p class="under-construction">⚠ UNDER CONSTRUCTION ⚠</p>
       <p><span class="blink">NEW!!!</span> click GAMES and play stuff</p>
-      <p>↓↓ click GAMES up there ↓↓</p>
+      <p>Choose GAMES from the menu to play.</p>
       <hr>
-      <p class="tiny">Best viewed with a snack and absolutely no plans.</p>
+      <p class="tiny">Thanks for visiting.</p>
     </section>
 
     <section id="gamesPage" style="display:none">
       <h2>GAMES</h2>
-      <p>pick one:</p>
+      <p>Select a game to begin.</p>
       <div class="game-list" id="gameList">
         <button class="game-card" data-game="ray"><strong>Raycast</strong><span class="tiny">walk around a tiny 3D maze</span></button>
         <button class="game-card" data-game="random"><strong>Randomizer</strong><span class="tiny">press the button. get a result.</span></button>
         <button class="game-card" data-game="maze"><strong>Maze Game</strong><span class="tiny">find the green exit</span></button>
         <button class="game-card" data-game="typing"><strong>Type Game</strong><span class="tiny">copy the text and type fast</span></button>
-        <button class="game-card" data-game="snake"><strong>Snake</strong><span class="tiny">eat pixels, avoid bonking</span></button>
+        <button class="game-card" data-game="snake"><strong>Snake</strong><span class="tiny">collect food and avoid yourself</span></button>
         <button class="game-card" data-game="pong"><strong>Pong</strong><span class="tiny">bouncy ball classic</span></button>
         <button class="game-card" data-game="mines"><strong>Minesweeper</strong><span class="tiny">find safe squares</span></button>
-        <button class="game-card" data-game="clicker"><strong>Cookie Clicker-ish</strong><span class="tiny">click the cookie. become powerful.</span></button>
-        <button class="game-card" data-game="breakout"><strong>Breakout</strong><span class="tiny">bonk the ball into bricks</span></button>
+        <button class="game-card" data-game="clicker"><strong>Cookie Clicker</strong><span class="tiny">click the cookie. become powerful.</span></button>
+        <button class="game-card" data-game="breakout"><strong>Breakout</strong><span class="tiny">break every brick</span></button>
+        <button class="game-card" data-game="tetris"><strong>Tetris</strong><span class="tiny">stack pieces and clear lines</span></button>
+        <button class="game-card" data-game="2048"><strong>2048</strong><span class="tiny">merge tiles to reach 2048</span></button>
+        <button class="game-card" data-game="memory"><strong>Memory Match</strong><span class="tiny">find all matching pairs</span></button>
+        <button class="game-card" data-game="shooter"><strong>Space Defender</strong><span class="tiny">dodge and shoot falling enemies</span></button>
+        <button class="game-card" data-game="reaction"><strong>Reaction Test</strong><span class="tiny">test your reaction time</span></button>
       </div>
 
       <div id="rayGame" class="game-screen panel">
@@ -142,7 +153,7 @@
         <button class="classic" id="mineReset">New board</button><button class="classic back">Back to games</button>
       </div>
       <div id="clickerGame" class="game-screen panel">
-        <h3>Cookie Clicker-ish</h3><p>Click the cookie. Numbers go up. That's the whole deal.</p>
+        <h3>Cookie Clicker-ish</h3><p>Collect cookies and upgrade each click.</p>
         <button id="cookieButton" style="font-size:56px;background:#f4e1bb;border:4px outset #fff;border-radius:50%;width:120px;height:120px;cursor:pointer">🍪</button>
         <p>Cookies: <b id="cookieCount">0</b></p><p>Per click: <b id="cookiePower">1</b></p>
         <button class="classic" id="cookieUpgrade">Upgrade click (cost: <span id="cookieCost">10</span>)</button>
@@ -153,7 +164,12 @@
         <canvas id="breakoutCanvas" class="game-canvas" width="480" height="320"></canvas>
         <p>Score: <b id="breakoutScore">0</b></p><button class="classic" id="breakoutStart">Start / Restart</button><button class="classic back">Back to games</button>
       </div>
-      <p class="tiny">Psst... click the homepage title five times. Or try the ↑ ↑ ↓ ↓ ← → ← → B A code.</p>
+      <div id="tetrisGame" class="game-screen panel"><h3>Tetris</h3><p>← → move · ↓ drop faster · ↑ rotate · Space hard drop</p><canvas id="tetrisCanvas" class="game-canvas" width="300" height="600"></canvas><p>Score: <b id="tetrisScore">0</b> · Lines: <b id="tetrisLines">0</b></p><button class="classic" id="tetrisStart">Start / Restart</button><button class="classic back">Back to games</button></div>
+      <div id="2048Game" class="game-screen panel"><h3>2048</h3><p>Use arrow keys to slide tiles. Combine equal numbers to reach 2048.</p><div id="board2048" class="board2048" aria-label="2048 game board"></div><p>Score: <b id="score2048">0</b> · <span id="status2048">Keep merging!</span></p><button class="classic" id="reset2048">New game</button><button class="classic back">Back to games</button></div>
+      <div id="memoryGame" class="game-screen panel"><h3>Memory Match</h3><p>Flip cards and find all eight pairs.</p><div id="memoryBoard" class="memory-board"></div><p>Moves: <b id="memoryMoves">0</b> · Matches: <b id="memoryMatches">0</b>/8</p><button class="classic" id="memoryReset">Shuffle cards</button><button class="classic back">Back to games</button></div>
+      <div id="shooterGame" class="game-screen panel"><h3>Space Defender</h3><p>Move with ← → or A/D. Space to fire. Don't let enemies reach the bottom.</p><canvas id="shooterCanvas" class="game-canvas" width="480" height="360"></canvas><p>Score: <b id="shooterScore">0</b> · Lives: <b id="shooterLives">3</b></p><button class="classic" id="shooterStart">Start / Restart</button><button class="classic back">Back to games</button></div>
+      <div id="reactionGame" class="game-screen panel"><h3>Reaction Test</h3><p>Press start, wait until the panel turns green, then click as fast as you can.</p><button id="reactionPad" style="display:block;width:100%;height:180px;border:3px ridge #aaa;background:#c8c8c8;font-size:22px;font-weight:bold;cursor:pointer">PRESS START</button><p id="reactionResult">Best: —</p><button class="classic" id="reactionStart">Start test</button><button class="classic back">Back to games</button></div>
+      
       <div id="typingGame" class="game-screen panel">
         <h3>Type Game</h3>
         <p>Copy the text below, then type it in the box. Your WPM and accuracy show up as you type.</p>
@@ -168,13 +184,18 @@
     <section id="secretPage" style="display:none">
       <h2>??? SECRET ZONE ???</h2><div class="panel">
       <p style="font:bold 22px Georgia,serif;color:#8a0000">YOU FOUND THE SECRET PAGE!!!</p>
-      <p>Achievement unlocked: you clicked stuff until something happened.</p><hr>
+      <p>You discovered a hidden part of the website.</p><hr>
       <p>Secret #1: The cake is probably a regular cake.</p><p>Secret #2: This website has 9000% more pixels than necessary.</p>
       <p>Secret #3: You are legally required to have a nice day. (not really)</p>
-      <p>Secret #4: There is no secret #5. Unless you count this sentence.</p>
-      <p>Secret #5: The tiny dot in the footer is clickable. (you probably found it already)</p>
+      <p>Secret #4: The site has more than one way to reach this room.</p>
+      <p>Secret #5: You found a hidden corner of the site.</p>
+      <p>Secret #6: Somewhere, a pixel is having a very normal day.</p>
+      <p>Secret #7: The old web never really left.</p>
+      <p>Secret #8: A secret can be hiding in plain sight.</p>
+      <p>Secret #9: The source code is part of the adventure.</p>
+      <p>Secret #10: You found all ten notes. Nice exploring.</p>
       <p id="secretCounter">Secret discoveries: <b>1</b></p>
-      <button class="classic" id="secretJoke">VERY IMPORTANT BUTTON</button><p id="secretJokeText"></p>
+      <button class="classic" id="secretJoke">Activate</button><p id="secretJokeText"></p>
       <button class="classic" id="secretBack">Go back to HOME</button></div>
     </section>
   </main>
@@ -208,8 +229,9 @@ navButtons.forEach(b => b.addEventListener('click', () => showPage(b.dataset.pag
 function openGame(name) {
   document.getElementById('gameList').style.display = 'none';
   document.querySelectorAll('.game-screen').forEach(s => s.classList.remove('show'));
-  document.getElementById(({ray:'rayGame',random:'randomGame',maze:'mazeGame',typing:'typingGame',snake:'snakeGame',pong:'pongGame',mines:'minesGame',clicker:'clickerGame',breakout:'breakoutGame'})[name]).classList.add('show');
+  document.getElementById(({ray:'rayGame',random:'randomGame',maze:'mazeGame',typing:'typingGame',snake:'snakeGame',pong:'pongGame',mines:'minesGame',clicker:'clickerGame',breakout:'breakoutGame',tetris:'tetrisGame','2048':'2048Game',memory:'memoryGame',shooter:'shooterGame',reaction:'reactionGame'})[name]).classList.add('show');
   if(name==='ray') drawRay();
+  if(name==='tetris') resetTetris(); if(name==='2048') reset2048(); if(name==='memory') resetMemory(); if(name==='shooter') drawShooter();
   if(name==='snake') resetSnake(); if(name==='pong') resetPong(); if(name==='mines') newMines(); if(name==='clicker') updateCookieUI(); if(name==='breakout') drawBreakout();
   if(name==='maze') drawMaze();
 }
@@ -358,7 +380,7 @@ drawRay();
 let secretKeys=[];const secretCode=['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
 document.addEventListener('keydown',e=>{secretKeys.push(e.key.length===1?e.key.toLowerCase():e.key);secretKeys=secretKeys.slice(-10);if(secretKeys.join('|')===secretCode.join('|'))showSecret();});
 document.getElementById('secretBack').addEventListener('click',()=>showPage('home'));
-document.getElementById('secretJoke').addEventListener('click',()=>document.getElementById('secretJokeText').textContent='BREAKING NEWS: you are looking at a website. Incredible.');
+document.getElementById('secretJoke').addEventListener('click',()=>document.getElementById('secretJokeText').textContent='System message: website is operating normally.');
 document.getElementById('footerSecret').addEventListener('click',e=>{e.preventDefault();showSecret();});
 
 // Snake
@@ -405,6 +427,59 @@ function moveBreakout(x){paddleX=Math.max(0,Math.min(400,x));if(!brRunning)drawB
 bc.addEventListener('mousemove',e=>{const r=bc.getBoundingClientRect();moveBreakout((e.clientX-r.left)*480/r.width-40);});
 document.addEventListener('keydown',e=>{if(!document.getElementById('breakoutGame').classList.contains('show'))return;if(e.key==='ArrowLeft'){e.preventDefault();moveBreakout(paddleX-22);}if(e.key==='ArrowRight'){e.preventDefault();moveBreakout(paddleX+22);}});
 document.getElementById('breakoutStart').addEventListener('click',()=>{resetBreakout();brRunning=true;brTimer=setInterval(breakoutStep,20);});
+
+
+// Tetris: 10 x 20 board, collision checks, line clears and hard drop.
+const tc=document.getElementById('tetrisCanvas'),tx=tc.getContext('2d');
+const TCOLS=10,TROWS=20,TS=30;
+const TSHAPES=[[[1,1,1,1]],[[1,1],[1,1]],[[0,1,0],[1,1,1]],[[1,0,0],[1,1,1]],[[0,0,1],[1,1,1]],[[1,1,0],[0,1,1]],[[0,1,1],[1,1,0]]];
+const TCOLORS=['#49d8e8','#f1d34f','#b17bf4','#4d8ff0','#f29b4b','#70d16d','#f06f75'];
+let tBoard=[],tPiece=null,tTimer=null,tScore=0,tLines=0,tOver=true;
+function tNewPiece(){let i=Math.floor(Math.random()*TSHAPES.length);return {shape:TSHAPES[i].map(r=>r.slice()),x:3,y:0,color:TCOLORS[i]};}
+function tCollide(p,dx=0,dy=0,shape=p.shape){return shape.some((row,yy)=>row.some((v,xx)=>v&&(p.x+xx+dx<0||p.x+xx+dx>=TCOLS||p.y+yy+dy>=TROWS||(p.y+yy+dy>=0&&tBoard[p.y+yy+dy][p.x+xx+dx]))));}
+function drawTetris(){tx.fillStyle='#111';tx.fillRect(0,0,tc.width,tc.height);for(let y=0;y<TROWS;y++)for(let x=0;x<TCOLS;x++){if(tBoard[y][x]){tx.fillStyle=tBoard[y][x];tx.fillRect(x*TS+1,y*TS+1,TS-2,TS-2);}else{tx.strokeStyle='#252525';tx.strokeRect(x*TS,y*TS,TS,TS);}}if(tPiece)tPiece.shape.forEach((r,y)=>r.forEach((v,x)=>{if(v&&tPiece.y+y>=0){tx.fillStyle=tPiece.color;tx.fillRect((tPiece.x+x)*TS+1,(tPiece.y+y)*TS+1,TS-2,TS-2);}}));if(tOver){tx.fillStyle='white';tx.font='16px monospace';tx.fillText('PRESS START',82,310);}}
+function tLock(){tPiece.shape.forEach((r,y)=>r.forEach((v,x)=>{if(v&&tPiece.y+y>=0)tBoard[tPiece.y+y][tPiece.x+x]=tPiece.color;}));let kept=tBoard.filter(r=>r.some(v=>!v));let cleared=TROWS-kept.length;if(cleared){tScore+=[0,100,300,500,800][cleared]||cleared*200;tLines+=cleared;while(kept.length<TROWS)kept.unshift(Array(TCOLS).fill(0));document.getElementById('tetrisScore').textContent=tScore;document.getElementById('tetrisLines').textContent=tLines;}tBoard=kept;tPiece=tNewPiece();if(tCollide(tPiece)){tOver=true;clearInterval(tTimer);tx.fillStyle='#ff7777';tx.font='bold 20px monospace';tx.fillText('GAME OVER',78,340);}drawTetris();}
+function tStep(){if(!tPiece)return;if(!tCollide(tPiece,0,1))tPiece.y++;else tLock();drawTetris();}
+function resetTetris(){clearInterval(tTimer);tBoard=Array.from({length:TROWS},()=>Array(TCOLS).fill(0));tPiece=tNewPiece();tScore=0;tLines=0;tOver=true;document.getElementById('tetrisScore').textContent='0';document.getElementById('tetrisLines').textContent='0';drawTetris();}
+document.getElementById('tetrisStart').onclick=()=>{resetTetris();tOver=false;clearInterval(tTimer);tTimer=setInterval(tStep,550);drawTetris();};
+document.addEventListener('keydown',e=>{if(!document.getElementById('tetrisGame').classList.contains('show')||tOver||!tPiece)return;let k=e.key;if(['ArrowLeft','ArrowRight','ArrowDown','ArrowUp',' '].includes(k))e.preventDefault();if(k==='ArrowLeft'&&!tCollide(tPiece,-1,0))tPiece.x--;if(k==='ArrowRight'&&!tCollide(tPiece,1,0))tPiece.x++;if(k==='ArrowDown')tStep();if(k==='ArrowUp'){let rot=tPiece.shape[0].map((_,i)=>tPiece.shape.map(r=>r[i]).reverse());if(!tCollide(tPiece,0,0,rot))tPiece.shape=rot;}if(k===' '){while(!tCollide(tPiece,0,1))tPiece.y++;tLock();}drawTetris();});
+
+// 2048
+let g2048=[],s2048=0,over2048=false;
+function addTile2048(){let empty=[];g2048.forEach((r,y)=>r.forEach((v,x)=>{if(!v)empty.push([y,x]);}));if(empty.length){let [y,x]=empty[Math.floor(Math.random()*empty.length)];g2048[y][x]=Math.random()<.9?2:4;}}
+function reset2048(){g2048=Array.from({length:4},()=>Array(4).fill(0));s2048=0;over2048=false;addTile2048();addTile2048();render2048();}
+function render2048(){const el=document.getElementById('board2048');el.innerHTML='';g2048.flat().forEach(v=>{let d=document.createElement('div');d.className='tile2048 '+(v?'v'+v:'v0')+(v>64?' big':'');d.textContent=v||'';el.appendChild(d);});document.getElementById('score2048').textContent=s2048;document.getElementById('status2048').textContent=over2048?'No more moves — start a new game.':g2048.flat().includes(2048)?'2048 reached! You win!':'Keep merging!';}
+function move2048(dir){if(!document.getElementById('2048Game').classList.contains('show')||over2048)return;let before=JSON.stringify(g2048);for(let i=0;i<4;i++){let line=dir==='left'||dir==='right'?g2048[i].slice():g2048.map(r=>r[i]);if(dir==='right'||dir==='down')line.reverse();line=line.filter(Boolean);for(let j=0;j<line.length-1;j++)if(line[j]===line[j+1]){line[j]*=2;s2048+=line[j];line.splice(j+1,1);}while(line.length<4)line.push(0);if(dir==='right'||dir==='down')line.reverse();if(dir==='left'||dir==='right')g2048[i]=line;else for(let y=0;y<4;y++)g2048[y][i]=line[y];}if(before!==JSON.stringify(g2048)){addTile2048();let can=g2048.flat().some(v=>!v);for(let y=0;y<4;y++)for(let x=0;x<4;x++)if((x<3&&g2048[y][x]===g2048[y][x+1])||(y<3&&g2048[y][x]===g2048[y+1][x]))can=true;over2048=!can;}render2048();}
+document.addEventListener('keydown',e=>{if(!document.getElementById('2048Game').classList.contains('show'))return;let d={'ArrowLeft':'left','ArrowRight':'right','ArrowUp':'up','ArrowDown':'down'}[e.key];if(d){e.preventDefault();move2048(d);}});document.getElementById('reset2048').onclick=reset2048;
+
+// Memory matching, with safe delayed second-card resolution.
+const MEMSYMS=['◆','●','▲','★','♥','☀','♫','☂'];let memDeck=[],memOpen=[],memFound=new Set(),memMoves=0,memLock=false;
+function resetMemory(){memDeck=[...MEMSYMS,...MEMSYMS].sort(()=>Math.random()-.5);memOpen=[];memFound=new Set();memMoves=0;memLock=false;document.getElementById('memoryMoves').textContent='0';document.getElementById('memoryMatches').textContent='0';const b=document.getElementById('memoryBoard');b.innerHTML='';memDeck.forEach((sym,i)=>{let btn=document.createElement('button');btn.className='memory-card';btn.textContent='?';btn.setAttribute('aria-label','Hidden card');btn.onclick=()=>flipMemory(i,btn);b.appendChild(btn);});}
+function flipMemory(i,btn){if(memLock||memFound.has(i)||memOpen.includes(i))return;btn.textContent=memDeck[i];btn.classList.add('open');btn.setAttribute('aria-label',memDeck[i]);memOpen.push(i);if(memOpen.length===2){memMoves++;document.getElementById('memoryMoves').textContent=memMoves;let [a,b]=memOpen;let buttons=document.querySelectorAll('.memory-card');if(memDeck[a]===memDeck[b]){memFound.add(a);memFound.add(b);memOpen=[];document.getElementById('memoryMatches').textContent=memFound.size/2;if(memFound.size===16)document.getElementById('memoryMoves').textContent=memMoves+' — complete!';}else{memLock=true;setTimeout(()=>{[a,b].forEach(j=>{buttons[j].textContent='?';buttons[j].classList.remove('open');buttons[j].setAttribute('aria-label','Hidden card');});memOpen=[];memLock=false;},700);}}}
+document.getElementById('memoryReset').onclick=resetMemory;
+
+// Space Defender
+const shc=document.getElementById('shooterCanvas'),shx=shc.getContext('2d');let shPlayer=240,shShots=[],shEnemies=[],shScore=0,shLives=3,shTimer=null,shRun=false,shKeys={};
+function drawShooter(){shx.fillStyle='#080d22';shx.fillRect(0,0,480,360);for(let i=0;i<45;i++){shx.fillStyle='#9ab6e8';shx.fillRect((i*83)%480,(i*47)%360,2,2);}shx.fillStyle='#6cf';shx.beginPath();shx.moveTo(shPlayer,325);shx.lineTo(shPlayer-14,350);shx.lineTo(shPlayer+14,350);shx.closePath();shx.fill();shx.fillStyle='#ffe66d';shShots.forEach(b=>shx.fillRect(b.x-2,b.y-7,4,10));shx.fillStyle='#ff5b75';shEnemies.forEach(e=>{shx.beginPath();shx.arc(e.x,e.y,10,0,Math.PI*2);shx.fill();shx.fillStyle='#fff';shx.fillRect(e.x-4,e.y-2,3,3);shx.fillRect(e.x+3,e.y-2,3,3);shx.fillStyle='#ff5b75';});if(!shRun){shx.fillStyle='white';shx.font='16px monospace';shx.fillText('PRESS START',170,180);}}
+function shooterStep(){if(shKeys.ArrowLeft||shKeys.a)shPlayer=Math.max(16,shPlayer-5);if(shKeys.ArrowRight||shKeys.d)shPlayer=Math.min(464,shPlayer+5);shShots.forEach(b=>b.y-=7);shEnemies.forEach(e=>e.y+=1.4);if(Math.random()<.035)shEnemies.push({x:15+Math.random()*450,y:-10});shShots=shShots.filter(b=>b.y>-10);for(let i=shEnemies.length-1;i>=0;i--){let e=shEnemies[i];let hit=shShots.findIndex(b=>Math.hypot(b.x-e.x,b.y-e.y)<15);if(hit>=0){shShots.splice(hit,1);shEnemies.splice(i,1);shScore++;document.getElementById('shooterScore').textContent=shScore;}else if(e.y>355){shEnemies.splice(i,1);shLives--;document.getElementById('shooterLives').textContent=shLives;if(shLives<=0){clearInterval(shTimer);shRun=false;drawShooter();shx.fillStyle='#ff8a9d';shx.font='bold 22px monospace';shx.fillText('GAME OVER',165,190);return;}}}drawShooter();}
+function startShooter(){clearInterval(shTimer);shPlayer=240;shShots=[];shEnemies=[];shScore=0;shLives=3;shRun=true;document.getElementById('shooterScore').textContent='0';document.getElementById('shooterLives').textContent='3';shTimer=setInterval(shooterStep,30);drawShooter();}
+document.getElementById('shooterStart').onclick=startShooter;
+document.addEventListener('keydown',e=>{if(!document.getElementById('shooterGame').classList.contains('show'))return;let k=e.key.toLowerCase();if(['arrowleft','arrowright',' '].includes(k))e.preventDefault();if(k==='arrowleft'||k==='arrowright'||k==='a'||k==='d')shKeys[k==='ArrowLeft'?'ArrowLeft':k==='ArrowRight'?'ArrowRight':k]=true;if(k===' '&&shRun&&shShots.length<7)shShots.push({x:shPlayer,y:322});});document.addEventListener('keyup',e=>{let k=e.key.toLowerCase();delete shKeys[k];if(e.key==='ArrowLeft')delete shKeys.ArrowLeft;if(e.key==='ArrowRight')delete shKeys.ArrowRight;});
+
+// Reaction test
+let reactState='idle',reactTimer=null,reactStart=0,reactBest=null;
+const reactionPad=document.getElementById('reactionPad');
+function beginReaction(){clearTimeout(reactTimer);reactState='wait';reactionPad.style.background='#b84c4c';reactionPad.textContent='WAIT FOR GREEN...';document.getElementById('reactionResult').textContent='';reactTimer=setTimeout(()=>{reactState='go';reactStart=performance.now();reactionPad.style.background='#48a85a';reactionPad.textContent='CLICK NOW!';},1200+Math.random()*2800);}
+reactionPad.addEventListener('click',()=>{if(reactState==='wait'){clearTimeout(reactTimer);reactState='idle';reactionPad.style.background='#c8c8c8';reactionPad.textContent='Too soon! Try again.';}else if(reactState==='go'){let ms=Math.round(performance.now()-reactStart);reactState='idle';reactionPad.style.background='#c8c8c8';reactionPad.textContent=ms+' ms';if(reactBest===null||ms<reactBest)reactBest=ms;document.getElementById('reactionResult').textContent='Result: '+ms+' ms · Best: '+reactBest+' ms';}});
+document.getElementById('reactionStart').onclick=beginReaction;
+
+// Five additional hidden easter eggs. No on-page clues.
+let marqueeClicks=0,constructionClicks=0,badgeClicks=0;const marquee=document.querySelector('.marquee'),construction=document.querySelector('.under-construction'),badge=document.getElementById('handmadeBadge'),greeting=document.getElementById('homeGreeting');
+marquee.addEventListener('click',()=>{if(++marqueeClicks>=7){marqueeClicks=0;showSecret();document.getElementById('secretJokeText').textContent='Easter egg: the marquee remembers every click.';}});
+construction.addEventListener('click',()=>{if(++constructionClicks>=10){constructionClicks=0;showSecret();document.getElementById('secretJokeText').textContent='Easter egg: construction is complete. Probably.';}});
+badge.addEventListener('click',()=>{if(++badgeClicks>=3){badgeClicks=0;showSecret();document.getElementById('secretJokeText').textContent='Easter egg: certified personal website.';}});
+greeting.addEventListener('dblclick',()=>{showSecret();document.getElementById('secretJokeText').textContent='Easter egg: hello again.';});
+let secretWord='';document.addEventListener('keydown',e=>{if(e.key.length===1){secretWord=(secretWord+e.key.toLowerCase()).slice(-6);if(secretWord==='pixels'){secretWord='';showSecret();document.getElementById('secretJokeText').textContent='Easter egg: pixels are the building blocks of this place.';}}});
 
 </script>
 </body>
